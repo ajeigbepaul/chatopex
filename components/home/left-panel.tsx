@@ -1,20 +1,21 @@
+"use client"
 import {
   ListFilter,
-  LogOut,
-  MessageSquareDiff,
   Search,
   User,
 } from "lucide-react";
 import { Input } from "../ui/input";
 import ThemeSwitch from "./theme-switch";
-import { conversations } from "@/dummy-data/db";
 import Conversation from "./conversation";
-// import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Button } from "../ui/button";
 import Link from "next/link";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut,  UserButton } from "@clerk/nextjs";
+import UserListDialog from "./user-list-dialog";
+import { useConvexAuth, useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 const LeftPanel = () => {
+  const { isAuthenticated, isLoading } = useConvexAuth();
+  const conversations = useQuery(api.conversations.getMyConversations, isAuthenticated ? undefined : "skip");
   // const conversations = [];
 
   return (
@@ -32,10 +33,9 @@ const LeftPanel = () => {
             <UserButton />
           </SignedIn>
           <div className="flex items-center gap-3">
-            <MessageSquareDiff size={20} />{" "}
-            {/* TODO: This line will be replaced with <UserListDialog /> */}
+            {isAuthenticated && <UserListDialog />}
             <ThemeSwitch />
-            <LogOut size={20} className="cursor-pointer" />
+            {/* <LogOut size={20} className="cursor-pointer" /> */}
           </div>
         </div>
         <div className="p-3 flex items-center">
