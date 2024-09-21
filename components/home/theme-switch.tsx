@@ -24,6 +24,7 @@ const ThemeSwitch = () => {
 			<DropdownMenuContent align='end' className='bg-gray-primary'>
 				<DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
 				<DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
+				{/* <DropdownMenuItem onClick={() => setTheme("lightblue")}>Blue</DropdownMenuItem> */}
 				<DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

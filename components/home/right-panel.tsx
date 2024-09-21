@@ -9,7 +9,6 @@ import { useConversationStore } from "@/store/chat-store";
 
 const RightPanel = () => {
 	const {selectedConversation,setSelectedConversation} = useConversationStore();
-    const isGroup = true
 	if (!selectedConversation) return <ChatPlaceHolder />;
 
 	const conversationName = selectedConversation.groupName || selectedConversation.name;
