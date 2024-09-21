@@ -59,6 +59,8 @@ const config: Config = {
         "left-panel": "hsl(var(--left-panel))",
         "chat-hover": "hsl(var(--chat-hover))",
         "green-primary": "hsl(var(--green-primary))",
+        "blue-primary":"hsl(var(--blue-primary))",
+        "blue-secondary":"hsl(var(--blue-secondary))",
         "green-secondary": "hsl(var(--green-secondary))",
         "green-chat": "hsl(var(--green-chat))",
       },

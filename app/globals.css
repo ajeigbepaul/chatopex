@@ -19,6 +19,9 @@
 
 		--green-primary: 167, 100%, 33%;
 		--green-chat: 111, 91%, 91%;
+
+		--blue-primary:212, 92%, 15%;
+		--blue-secondary:200, 100%, 91%;
 		/* CLASSES ADDED BY US */
 
 		--card: 0 0% 100%;
@@ -66,6 +69,10 @@
 		--green-secondary: 165, 100%, 39%;
 		--green-chat: 169, 100%, 18%;
 
+		--blue-primary:212, 92%, 15%;
+		--blue-secondary:200, 100%, 91%;
+		
+
 		--gray-tertiary: 203, 22%, 21%;
 		/* CLASSES ADDED BY US */
 
@@ -94,7 +101,56 @@
 		--input: 217.2 32.6% 17.5%;
 		--ring: 212.7 26.8% 83.9%;
 	}
-}
+	.lightblue{
+		
+			--background: 210, 100%, 95%; /* Light blue background */
+			--foreground: 222.2, 62%, 15%; /* Darker blue for text */
+		  
+			/* Custom Classes */
+			--container: 210, 100%, 100%; /* Bright white-blue for containers */
+			--left-panel: 210, 36%, 85%; /* Soft blue for left panel */
+		  
+			--gray-primary: 210, 20%, 95%; /* Very light blue-gray */
+			--gray-secondary: 210, 20%, 90%; /* Light blue-gray */
+		  
+			--chat-hover: 210, 15%, 96%; /* Very light blue for chat hover */
+		  
+			--green-primary: 167, 100%, 33%; /* Original green for status indicators */
+			--green-chat: 145, 91%, 91%; /* Light minty green for chat background */
+		  
+			--blue-primary: 212, 92%, 35%; /* Mid blue for primary buttons */
+			--blue-secondary: 210, 100%, 85%; /* Light blue for secondary elements */
+		  
+			--card: 210, 100%, 98%; /* Lighter blue for cards */
+			--card-foreground: 222.2, 62%, 15%; /* Darker blue for card text */
+		  
+			--popover: 210, 100%, 98%; /* Light blue for popover */
+			--popover-foreground: 222.2, 62%, 15%; /* Darker blue for popover text */
+		  
+			--primary: 212, 92%, 35%; /* Mid blue for primary elements */
+			--primary-foreground: 210, 40%, 98%; /* Light blue for primary text */
+		  
+			--secondary: 210, 60%, 90%; /* Light blue for secondary elements */
+			--secondary-foreground: 212, 92%, 35%; /* Mid blue for secondary text */
+		  
+			--muted: 210, 50%, 95%; /* Light muted blue */
+			--muted-foreground: 210, 25%, 30%; /* Mid blue-gray for muted text */
+		  
+			--accent: 210, 70%, 85%; /* Light blue accent */
+			--accent-foreground: 222.2, 62%, 15%; /* Darker blue for accent text */
+		  
+			--destructive: 0, 84.2%, 60.2%; /* Red for destructive elements */
+			--destructive-foreground: 210, 40%, 98%; /* Light blue for destructive text */
+		  
+			--border: 210, 36%, 90%; /* Light blue for borders */
+			--input: 210, 36%, 90%; /* Light blue for input fields */
+			--ring: 212, 92%, 35%; /* Mid blue for focus rings */
+		  
+			--radius: 0.5rem; /* Border radius */
+		  }
+		  
+	}
+
 
 @layer base {
 	* {
@@ -118,3 +174,60 @@
 		background-color: hsl(var(--container));
 	}
 }
+.glassmorphism {
+	background: rgba(255, 255, 255, 0.25);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+  }
+  .glassmorphism-auth {
+	background: rgba(6, 3, 3, 0.711);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+  }
+  .glassmorphism-black {
+	background: rgba(18, 18, 18, 0.64);
+	backdrop-filter: blur(37px);
+	-webkit-backdrop-filter: blur(37px);
+  }
+  
+/* ======= clerk overrides ======== */
+.cl-socialButtonsIconButton {
+	border: 2px solid #222429;
+  }
+  .cl-button {
+	color: white;
+  }
+  .cl-socialButtonsProviderIcon__github {
+	filter: invert(1);
+  }
+  .cl-internal-b3fm6y {
+	/* background: #187bcd; */
+	background: hsl(200, 100%, 91%);
+  }
+  .cl-formButtonPrimary {
+	background: #e5c685;
+  }
+  .cl-formButtonPrimary:hover{
+	background: #187bcd;
+  }
+  
+  .cl-footerActionLink {
+	color: #d0efff;
+  }
+  .cl-headerSubtitle {
+	color: #c5d0e6;
+  }
+  .cl-logoImage {
+	width: 10rem;
+	height: 3rem;
+  }
+  .cl-internal-4a7e9l {
+	color: white;
+  }
+  
+  .cl-userButtonPopoverActionButtonIcon {
+	color: white;
+  }
+  .cl-internal-wkkub3 {
+	color: #187bcd;
+  }
