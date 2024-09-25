@@ -29,8 +29,8 @@ const LeftPanel = () => {
 
 	if (isLoading) return null;
   return (
-    <div className="w-1/4 border-gray-600 border-r">
-      <div className="sticky top-0 bg-left-panel z-10">
+    <div className="w-1/4 border-gray-600 border-r z-30 bg-white dark:bg-left-panel">
+      <div className="sticky top-0 bg-left-panel z-30">
         {/* Header */}
         <div className="flex justify-between bg-gray-primary p-3 items-center">
           <SignedOut>

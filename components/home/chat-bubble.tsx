@@ -8,6 +8,7 @@ import { Bot } from "lucide-react";
 import DateIndicator from "./date-indicator";
 import ChatBubbleAvatar from "./chat-bubble-avatar";
 import ChatAvatarActions from "./chat-avatar-actions";
+import ReactPlayer from "react-player";
 
 type ChatBubbleProps = {
 	message: IMessage;
@@ -37,8 +38,8 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
 				return <TextMessage message={message} />;
 			case "image":
 				return <ImageMessage message={message} handleClick={() => setOpen(true)} />;
-			// case "video":
-			// 	return <VideoMessage message={message} />;
+			case "video":
+				return <VideoMessage message={message} />;
 			default:
 				return null;
 		}
@@ -80,9 +81,9 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
 };
 export default ChatBubble;
 
-// const VideoMessage = ({ message }: { message: IMessage }) => {
-// 	return <ReactPlayer url={message.content} width='250px' height='250px' controls={true} light={true} />;
-// };
+const VideoMessage = ({ message }: { message: IMessage }) => {
+	return <ReactPlayer url={message.content} width='250px' height='250px' controls={true} light={true} />;
+};
 
 const ImageMessage = ({ message, handleClick }: { message: IMessage; handleClick: () => void }) => {
 	return (
