@@ -211,9 +211,21 @@ const MediaVideoDialog = ({
   isLoading,
   handleSendVideo,
 }: MediaVideoDialogProps) => {
-  const renderedVideo = URL.createObjectURL(
-    new Blob([selectedVideo], { type: "video/mp4" })
-  );
+  const [renderedVideo, setRenderedVideo] = useState<string | null>(null);
+  useEffect(() => {
+    if (selectedVideo) {
+      const videoUrl = URL.createObjectURL(new Blob([selectedVideo], { type: "video/mp4" }));
+      setRenderedVideo(videoUrl);
+    }
+    return () => {
+      if (renderedVideo) {
+        URL.revokeObjectURL(renderedVideo); // Clean up the URL object
+      }
+    };
+  },[selectedVideo])
+//   const renderedVideo = URL.createObjectURL(
+//     new Blob([selectedVideo], { type: "video/mp4" })
+//   );
 
   return (
     <Dialog

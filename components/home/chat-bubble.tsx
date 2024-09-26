@@ -27,6 +27,8 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
 	const isGroup = selectedConversation?.isGroup;
 	const fromMe = message.sender?._id === me._id;
 	const fromAI = message.sender?.name === "ChatGPT";
+	console.log("fromAI:",fromAI)
+	console.log("Messagesender:",message.sender)
 	const bgClass = fromMe ? "bg-green-chat" : !fromAI ? "bg-white dark:bg-gray-primary" : "bg-blue-500 text-white";
 
 	console.log(message.sender);

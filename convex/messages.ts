@@ -44,13 +44,21 @@ export const sendTextMessage = mutation({
 		});
 
 		// TODO => add @gpt check later
-		// if (args.content.startsWith("@gpt")) {
-		// 	// Schedule the chat action to run immediately
-		// 	await ctx.scheduler.runAfter(0, api.openai.chat, {
-		// 		messageBody: args.content,
-		// 		conversation: args.conversation,
-		// 	});
-		// }
+		if (args.content.startsWith("@gpt")) {
+			try {
+				console.log(`@gpt detected. Scheduling GPT action for conversation ${args.conversation}`);
+			
+				// Schedule the chat action to run immediately
+				await ctx.scheduler.runAfter(0, api.hf.chat, {
+				  messageBody: args.content,
+				  conversation: args.conversation,
+				});
+			
+				console.log("Scheduler successfully triggered GPT action.");
+			  } catch (error) {
+				console.error("Error scheduling GPT action:", error);
+			  }
+		}
 
 		// if (args.content.startsWith("@dall-e")) {
 		// 	await ctx.scheduler.runAfter(0, api.openai.dall_e, {

@@ -1,14 +1,10 @@
-"use client"
-import {
-  ListFilter,
-  Search,
-  User,
-} from "lucide-react";
+"use client";
+import { ListFilter, Search, User } from "lucide-react";
 import { Input } from "../ui/input";
 import ThemeSwitch from "./theme-switch";
 import Conversation from "./conversation";
 import Link from "next/link";
-import { SignedIn, SignedOut,  UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import UserListDialog from "./user-list-dialog";
 import { useConvexAuth, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -17,17 +13,27 @@ import { useEffect } from "react";
 
 const LeftPanel = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();
-  const conversations = useQuery(api.conversations.getMyConversations, isAuthenticated ? undefined : "skip");
+  const conversations = useQuery(
+    api.conversations.getMyConversations,
+    isAuthenticated ? undefined : "skip"
+  );
   // const conversations = [];
-  const { selectedConversation, setSelectedConversation } = useConversationStore();
+  const { selectedConversation, setSelectedConversation } =
+    useConversationStore();
   useEffect(() => {
-		const conversationIds = conversations?.map((conversation) => conversation._id);
-		if (selectedConversation && conversationIds && !conversationIds.includes(selectedConversation._id)) {
-			setSelectedConversation(null);
-		}
-	}, [conversations, selectedConversation, setSelectedConversation]);
+    const conversationIds = conversations?.map(
+      (conversation) => conversation._id
+    );
+    if (
+      selectedConversation &&
+      conversationIds &&
+      !conversationIds.includes(selectedConversation._id)
+    ) {
+      setSelectedConversation(null);
+    }
+  }, [conversations, selectedConversation, setSelectedConversation]);
 
-	if (isLoading) return null;
+  if (isLoading) return <SkeletonLoader/>;
   return (
     <div className="w-1/4 border-gray-600 border-r z-30 bg-white dark:bg-left-panel">
       <div className="sticky top-0 bg-left-panel z-30">
@@ -82,6 +88,44 @@ const LeftPanel = () => {
             </p>
           </>
         )}
+      </div>
+    </div>
+  );
+};
+
+const SkeletonLoader = () => {
+  return (
+    <div className="w-1/4 border-gray-600 border-r z-30 bg-white dark:bg-left-panel">
+      <div className="sticky top-0 bg-left-panel z-30">
+        {/* Skeleton Header */}
+        <div className="flex justify-between bg-gray-primary p-3 items-center">
+          {/* Skeleton for User Icon */}
+          <div className="w-6 h-6 bg-gray-300 rounded-full animate-pulse" />
+
+          {/* Skeleton for User Buttons */}
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 bg-gray-300 rounded-full animate-pulse" />
+            <div className="w-6 h-6 bg-gray-300 rounded-full animate-pulse" />
+          </div>
+        </div>
+
+        {/* Skeleton Search */}
+        <div className="p-3 flex items-center">
+          <div className="relative h-10 mx-3 flex-1">
+            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-gray-300 rounded animate-pulse" />
+            <div className="h-10 w-full rounded bg-gray-300 animate-pulse" />
+          </div>
+          <div className="w-6 h-6 bg-gray-300 rounded-full animate-pulse" />
+        </div>
+      </div>
+
+      {/* Skeleton Chat List */}
+      <div className="my-3 flex flex-col gap-3 max-h-[80%] overflow-auto">
+        {/* Repeat these for loading skeletons */}
+        <div className="h-12 bg-gray-200 rounded-lg animate-pulse mx-3"></div>
+        <div className="h-12 bg-gray-200 rounded-lg animate-pulse mx-3"></div>
+        <div className="h-12 bg-gray-200 rounded-lg animate-pulse mx-3"></div>
+        <div className="h-12 bg-gray-200 rounded-lg animate-pulse mx-3"></div>
       </div>
     </div>
   );
