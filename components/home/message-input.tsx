@@ -1,5 +1,5 @@
-"use client"
-import { Laugh, Mic, Plus, Send } from "lucide-react";
+"use client";
+import { Laugh, Mic, Send } from "lucide-react";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import { Button } from "../ui/button";
@@ -10,13 +10,45 @@ import { useConversationStore } from "@/store/chat-store";
 import EmojiPicker, { Theme } from "emoji-picker-react";
 import useComponentVisible from "@/hook/useComponentVisible";
 import MediaDropdown from "./media-dropdown";
+import { v4 as uuidv4 } from "uuid";
+import { useUploadFiles } from "@xixixao/uploadstuff/react";
 const MessageInput = () => {
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
+  const getImageUrl = useMutation(api.messages.getUrl);
+  const sendTextMsg = useMutation(api.messages.sendTextMessage);
+  const sendAIMsg = useMutation(api.messages.sendChatGPTMessage);
+  const { startUpload } = useUploadFiles(generateUploadUrl);
+  const [imageURL, setImageUrl] = useState("");
+  const [imageLoader, setImageLoader] = useState(false);
+  const [imagestorageId, setImageStorageId] = useState("");
+
   const [msgText, setMsgText] = useState("");
   const { selectedConversation } = useConversationStore();
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
   const me = useQuery(api.users.getMe);
-  const sendTextMsg = useMutation(api.messages.sendTextMessage);
+
+  const handleImage = async (blob: Blob, fileName: string) => {
+    setImageLoader(true);
+    setImageUrl("");
+
+    try {
+      const file = new File([blob], fileName, { type: "image/png" });
+      console.log("FILE:", file);
+      const uploaded = await startUpload([file]);
+      console.log("UPLOADEDFILE:", uploaded);
+      const storageId = (uploaded[0].response as any).storageId;
+
+      setImageStorageId(storageId);
+
+      const imageUrl = await getImageUrl({ storageId });
+      setImageUrl(imageUrl!);
+      setImageLoader(false);
+      console.log("imageUrl:", imageUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSendTextMsg = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,6 +58,37 @@ const MessageInput = () => {
         conversation: selectedConversation!._id,
         sender: me!._id,
       });
+
+      if (msgText.startsWith("@dall_e")) {
+        const prompt = msgText.slice(8).trim(); // Extract the prompt
+        const response = await fetch("/api", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ inputs: prompt }), // Send the message after @dall_e
+        });
+        if (response.ok) {
+          const contentType = response.headers.get("Content-Type");
+          if (contentType && contentType.startsWith("image/")) {
+            // Check if the response is an image
+            const blob = await response.blob();
+            handleImage(blob, `chatopexdalle-${uuidv4()}`);
+          } else {
+            console.error("Response is not an image");
+          }
+          await sendAIMsg({
+            content: imageURL ?? "/poopenai.png",
+            conversation: selectedConversation!._id,
+            messageType: "image",
+          });
+        } else {
+          console.error("Failed to generate image");
+        }
+      } else {
+        console.error("Failed to generate image");
+      }
+
       setMsgText("");
     } catch (err: any) {
       toast.error(err.message);
@@ -53,7 +116,7 @@ const MessageInput = () => {
           )}
           <Laugh className="text-gray-600 dark:text-gray-400" />
         </div>
-        <MediaDropdown/>
+        <MediaDropdown />
         {/* <Plus className="text-gray-600 dark:text-gray-400" /> */}
       </div>
       <form className="w-full flex gap-3" onSubmit={handleSendTextMsg}>

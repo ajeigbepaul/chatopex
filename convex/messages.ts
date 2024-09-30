@@ -1,7 +1,15 @@
 import { ConvexError, v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { api } from "./_generated/api";
-
+// this mutation is required to generate the url after uploading the file to the storage.
+export const getUrl = mutation({
+	args: {
+	  storageId: v.id("_storage"),
+	},
+	handler: async (ctx, args) => {
+	  return await ctx.storage.getUrl(args.storageId);
+	},
+  });
 export const sendTextMessage = mutation({
 	args: {
 		sender: v.string(),
@@ -60,11 +68,18 @@ export const sendTextMessage = mutation({
 			  }
 		}
 
-		// if (args.content.startsWith("@dall-e")) {
-		// 	await ctx.scheduler.runAfter(0, api.openai.dall_e, {
-		// 		messageBody: args.content,
-		// 		conversation: args.conversation,
-		// 	});
+		// if (args.content.startsWith("@dall_e")) {
+		// 	console.log(`@dall_e detected. Scheduling GPT action for conversation ${args.conversation}`);
+
+		// 	try {
+		// 		await ctx.scheduler.runAfter(0, api.hf.dall_e, {
+		// 			messageBody: args.content,
+		// 			conversation: args.conversation,
+		// 		});
+		// 	} catch (error) {
+		// 		console.error("Error scheduling DALLE action:", error);
+		// 	}
+			
 		// }
 	},
 });
