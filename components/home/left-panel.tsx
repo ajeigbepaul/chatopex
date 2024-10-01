@@ -10,13 +10,23 @@ import { useConvexAuth, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useConversationStore } from "@/store/chat-store";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const LeftPanel = () => {
+  const router = useRouter(); // Initialize the router
   const { isAuthenticated, isLoading } = useConvexAuth();
   const conversations = useQuery(
     api.conversations.getMyConversations,
     isAuthenticated ? undefined : "skip"
   );
+
+  // Redirect to sign-in if not authenticated and no conversations
+  useEffect(() => {
+    if (!isAuthenticated && conversations?.length === 0) {
+      router.push("/sign-in"); // Redirect to sign-in page
+    }
+  }, [isAuthenticated, conversations, router]);
+
   // const conversations = [];
   const { selectedConversation, setSelectedConversation } =
     useConversationStore();
@@ -41,15 +51,15 @@ const LeftPanel = () => {
       <div className="sticky top-0 bg-left-panel z-30">
         {/* Header */}
         <div className="flex justify-between bg-gray-primary p-3 items-center">
-          <SignedOut>
+          {/* <SignedOut>
             <Link href={"/sign-in"}>
               <User size={24} />
             </Link>
-            {/* <SignInButton /> */}
           </SignedOut>
           <SignedIn>
             <UserButton />
-          </SignedIn>
+          </SignedIn> */}
+          <UserButton />
           <div className="flex items-center gap-3">
             {isAuthenticated && <UserListDialog />}
             <ThemeSwitch />

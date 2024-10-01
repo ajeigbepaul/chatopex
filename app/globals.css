@@ -225,6 +225,10 @@
   .cl-internal-4a7e9l {
 	color: white;
   }
+  .cl-internal-1lldyk3 {
+	--accent: hsla(0, 0%, 11%, 0.62);
+    --accentHover: hsla(0, 0%, 96%, 0.73);
+  }
   
   .cl-userButtonPopoverActionButtonIcon {
 	color: white;
