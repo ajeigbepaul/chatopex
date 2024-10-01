@@ -59,7 +59,7 @@ import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 
 
 export function getUrlParams(url = window.location.href) {
-  let urlStr = url.split("?")[1];
+  const urlStr = url.split("?")[1];
   return new URLSearchParams(urlStr);
 }
 
@@ -69,7 +69,7 @@ export function getUrlParams(url = window.location.href) {
 export default function VideoUIKit() {
   const roomID = getUrlParams().get("roomID") || randomID(5);
   const { user } = useClerk();
-  let myMeeting = (element: HTMLDivElement) => {
+  const myMeeting = (element: HTMLDivElement) => {
     // generate Kit Token
     // const kitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
     //   appID,

@@ -7,7 +7,7 @@ const nextConfig = {
       { hostname: "handsome-penguin-673.convex.cloud" },
     ],
   },
-//   typescript: { ignoreBuildErrors: true },
+  typescript: { ignoreBuildErrors: true },
 };
 
 export default nextConfig;

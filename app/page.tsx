@@ -1,14 +1,11 @@
 import LeftPanel from "@/components/home/left-panel";
 import RightPanel from "@/components/home/right-panel";
-import Image from "next/image";
-// import Image from "next/image";
 
 export default function Home() {
   return (
     <main className="m-5">
       <div className="md:flex overflow-y-hidden h-[calc(100vh-50px)] max-w-[1700px] mx-auto bg-left-panel relative">
         {/* Green background decorator for Light Mode */}
-        {/* <Image src={"/bgimage.jpg"} alt="imagebg" width={1700} height={800} className="absolute -top-20 left-0"/> */}
         <div className="fixed top-0 left-0 w-full h-36 bg-blue-primary dark:bg-transparent -z-30" />
         <LeftPanel />
         <RightPanel />
