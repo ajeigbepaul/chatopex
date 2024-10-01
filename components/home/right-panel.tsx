@@ -21,10 +21,10 @@ const RightPanel = () => {
     selectedConversation.groupImage || selectedConversation.image;
 
   return (
-    <div className="w-3/4 flex flex-col">
+    <div className="md:w-3/4 w-full flex flex-col">
       <div className="w-full sticky top-0 z-50">
         {/* Header */}
-        <div className="flex justify-between bg-white p-3">
+        <div className="flex justify-between p-3 bg-gray-primary">
           <div className="flex gap-3 items-center">
             <Avatar>
               <AvatarImage
@@ -58,7 +58,10 @@ const RightPanel = () => {
         </div>
       </div>
       {/* CHAT MESSAGES */}
-      <MessageContainer />
+      {/* <MessageContainer /> */}
+	  <div className="flex-1 p-3 overflow-y-auto overflow-x-hidden md:max-h-[calc(100vh-50px)] max-h-[calc(100vh-200px)]"> {/* Added styles for scrolling */}
+        <MessageContainer />
+      </div>
 
       {/* INPUT */}
       <MessageInput />
@@ -68,7 +71,7 @@ const RightPanel = () => {
 
 const SkeletonLoader = () => {
   return (
-    <div className="w-3/4 flex flex-col bg-white dark:bg-gray-800">
+    <div className="md:w-3/4 w-full flex flex-col bg-white dark:bg-gray-800">
       <div className="w-full sticky top-0 z-50">
         {/* Skeleton Header */}
         <div className="flex justify-between bg-white dark:bg-gray-800 p-3">
