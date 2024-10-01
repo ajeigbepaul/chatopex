@@ -113,9 +113,9 @@ const initMeeting = async () => {
 
     const username = user?.fullName || user?.emailAddresses[0].emailAddress.split("@")[0];
 
-    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(appID, token, roomID, user?.id!, username);
+    const kitToken = ZegoUIKitPrebuilt?.generateKitTokenForProduction(appID, token, roomID, user?.id!, username);
 
-    const zp = ZegoUIKitPrebuilt.create(kitToken);
+    const zp = ZegoUIKitPrebuilt?.create(kitToken);
     zp.joinRoom({
         container: element,
         sharedLinks: [

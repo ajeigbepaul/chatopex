@@ -71,7 +71,7 @@ function aesEncrypt(plainText: string, key: string, iv: string): ArrayBuffer {
 }
 
 export function generateToken04(
-	appId: any,
+	appId: number,
 	userId: string,
 	secret: string,
 	effectiveTimeInSeconds: number,

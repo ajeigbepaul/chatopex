@@ -1,3 +1,10 @@
+// {
+//   "extends": ["next/core-web-vitals", "next/typescript"]
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off"  // Example rule to disable
+    // "@typescript-eslint/explicit-module-boundary-types": "off"  // Example rule to disable
+  }
 }
+ 

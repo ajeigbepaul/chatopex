@@ -4,7 +4,13 @@ import { Ban, LogOut } from "lucide-react";
 import toast from "react-hot-toast";
 import { api } from "@/convex/_generated/api";
 import React from "react";
-
+type User = {
+	_id: string;
+	name: string;
+	isOnline: boolean;
+	image: string;
+	// Add other relevant fields as necessary
+};
 type ChatAvatarActionsProps = {
 	message: IMessage;
 	me: any;
